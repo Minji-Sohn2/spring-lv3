@@ -35,10 +35,21 @@ public class Memo extends Timestamped{
         this.password = memoRequestDto.getPassword();
     }
 
-    public void update(MemoRequestDto memoRequestDto) {
-        this.title = memoRequestDto.getTitle();
-        this.username = memoRequestDto.getUsername();
-        this.contents = memoRequestDto.getContents();
+    // Entity class는 Db와 직접적으로 연관됨
+    // 수정이 많이 발생하면 좋지 않음
+    // 변수가 추가될 때마다 메서드가 수정되어야하기 때문에
+    // update라는 함수로 묶어 전체를 셋팅하기 보다
+    // 각각의 외부 set 메서드 사용하는 것이 좋음
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
     // memo에 저장된 password와 사용자가 입력한 inputPassword가 일치하는지 확인

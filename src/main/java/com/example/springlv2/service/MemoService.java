@@ -39,14 +39,16 @@ public class MemoService {
         return new MemoResponseDto(findMemo(id));
     }
 
-    // Transactional을 사용해야
     @Transactional
     public MemoResponseDto updateMemo(Long id, MemoRequestDto memoRequestDto) {
 
         Memo memo = findMemo(id);
 
         memo.checkPassword(memoRequestDto.getPassword());
-        memo.update(memoRequestDto);
+
+        memo.setTitle(memoRequestDto.getTitle());
+        memo.setUsername(memoRequestDto.getUsername());
+        memo.setContents(memoRequestDto.getContents());
 
         return new MemoResponseDto(memo);
     }
