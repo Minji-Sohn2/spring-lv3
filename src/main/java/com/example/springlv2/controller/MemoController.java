@@ -25,21 +25,27 @@ public class MemoController {
     }
 
     @GetMapping("/memos")
-    public List<MemoResponseDto> getMemos() {
+    public List<MemoResponseDto> getMemoList() {
 
-        return memoService.getMemos();
+        return memoService.getMemoList();
+    }
+
+    @GetMapping("/memos/{id}")
+    public MemoResponseDto getMemo(@PathVariable Long id){
+        return memoService.getMemo(id);
     }
 
     @PutMapping("/memos/{id}")
-    public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
 
         return memoService.updateMemo(id, requestDto);
     }
 
     @DeleteMapping("/memos/{id}")
-    public Long deleteMemo(@PathVariable Long id) {
+    public Long deleteMemo(@PathVariable Long id, @RequestBody MemoRequestDto memoRequestDto) {
 
-        return memoService.deleteMemo(id);
+        memoService.deleteMemo(id, memoRequestDto.getPassword());
+        return id;
     }
 
 }
