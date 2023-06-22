@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+    // Valid (객체의 제약조건을 검증하도록 지시)
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+
     // JWT
     compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
