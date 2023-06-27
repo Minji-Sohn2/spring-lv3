@@ -28,7 +28,7 @@ public class JwtUtil {
     public static final String BEARER_PREFIX = "Bearer ";
     private final long TOKEN_TIME = 60 * 60 * 1000L; // 60분 (millisec)
 
-    @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey
+    @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey(application.properties)
     private String secretKey;
     //secretkey 담을 객체 (jwt 암호화, 복호화에 사용)
     private Key key;
@@ -81,7 +81,7 @@ public class JwtUtil {
     public String substringToken(String tokenValue){
         // 공백과 null이 아닌지 && 'Bearer '로 시작하는지
         if(StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)){
-            // 'Bearer ' 떼기
+            // 'Bearer ' 떼기 (value값만 남기기)
             return tokenValue.substring(7);
         }
         logger.error("Not Found Token");
