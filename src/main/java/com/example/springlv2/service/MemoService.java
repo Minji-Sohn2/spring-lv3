@@ -23,12 +23,10 @@ public class MemoService {
 
     public MemoResponseDto createMemo(MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
         // RequestDto -> Entity
-        Memo memo = new Memo(memoRequestDto, userDetails);
-
-        Memo saveMemo = memoRepository.save(memo);
+        Memo memo = memoRepository.save(new Memo(memoRequestDto, userDetails.getUser()));
 
         // Entity -> ResponseDto
-        return new MemoResponseDto(saveMemo);
+        return new MemoResponseDto(memo);
     }
 
     public List<MemoResponseDto> getMemoList() {
