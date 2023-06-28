@@ -2,7 +2,9 @@ package com.example.springlv2.controller;
 
 import com.example.springlv2.dto.MemoRequestDto;
 import com.example.springlv2.dto.MemoResponseDto;
+import com.example.springlv2.security.UserDetailsImpl;
 import com.example.springlv2.service.MemoService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +21,9 @@ public class MemoController {
     }
 
     @PostMapping("/memos")
-    public MemoResponseDto createMemo(@RequestBody MemoRequestDto requestDto) {
+    public MemoResponseDto createMemo(@RequestBody MemoRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        return memoService.createMemo(requestDto);
+        return memoService.createMemo(requestDto, userDetails);
     }
 
     @GetMapping("/memos")

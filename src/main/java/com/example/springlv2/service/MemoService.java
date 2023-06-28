@@ -4,6 +4,7 @@ import com.example.springlv2.dto.MemoRequestDto;
 import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.entity.Memo;
 import com.example.springlv2.repository.MemoRepository;
+import com.example.springlv2.security.UserDetailsImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +21,9 @@ public class MemoService {
     }
 
 
-    public MemoResponseDto createMemo(MemoRequestDto memoRequestDto) {
+    public MemoResponseDto createMemo(MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
         // RequestDto -> Entity
-        Memo memo = new Memo(memoRequestDto);
+        Memo memo = new Memo(memoRequestDto, userDetails);
 
         Memo saveMemo = memoRepository.save(memo);
 

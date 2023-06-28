@@ -1,6 +1,7 @@
 package com.example.springlv2.entity;
 
 import com.example.springlv2.dto.MemoRequestDto;
+import com.example.springlv2.security.UserDetailsImpl;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,9 @@ public class Memo extends Timestamped{
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-    public Memo(MemoRequestDto memoRequestDto) {
+    public Memo(MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
         this.title = memoRequestDto.getTitle();
-        this.username = memoRequestDto.getUsername();
+        this.username = userDetails.getUsername();
         this.contents = memoRequestDto.getContents();
         this.password = memoRequestDto.getPassword();
     }
