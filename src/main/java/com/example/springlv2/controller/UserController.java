@@ -29,19 +29,4 @@ public class UserController {
         return new ApiResponseDto("회원 가입 완료", HttpStatus.OK.value());
     }
 
-    @PostMapping("/login")
-    public ApiResponseDto login(@Valid @RequestBody SignupRequestDto signupRequestDto, HttpServletResponse res){
-        try {
-            // 받아온 데이터 signupRequetDto 검증하라고 보내주기
-            // 검증 끝나면 jwt token을 cookie에 넣고
-            // cookie를 담을 response 객체도 보내주기
-            userService.login(signupRequestDto, res);
-        } catch (Exception e) {
-            // 로그인에 실패하면 메세지와 로그인 실패 상태코드 반환
-            return new ApiResponseDto("로그인 실패", HttpStatus.UNAUTHORIZED.value());
-        }
-        // 로그인 성공하면 성공 메세지와
-        return new ApiResponseDto("로그인 완료", HttpStatus.OK.value());
-    }
-
 }

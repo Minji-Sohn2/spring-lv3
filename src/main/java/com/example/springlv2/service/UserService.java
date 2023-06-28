@@ -38,24 +38,4 @@ public class UserService {
         return user;
     }
 
-    // 로그인
-    public void login(SignupRequestDto signupRequestDto, HttpServletResponse res) {
-        String username = signupRequestDto.getUsername();
-        String password = signupRequestDto.getPassword();
-
-        // 사용자 실재하는지 확인
-        //
-        User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
-        );
-
-        // 비밀번호 확인 (passwordEncoder가 암호화 되어 저장된 비밀번호랑 matches로 알아서 확인해 줄 것)
-        if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-
-        // JWT 생성 및 쿠키에 저장 후 response 객체에 추가
-        String token = jwtUtil.createToken(user.getUsername());
-        jwtUtil.addJwtToCookie(token, res);
-    }
 }

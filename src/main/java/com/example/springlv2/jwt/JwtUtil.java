@@ -60,32 +60,13 @@ public class JwtUtil {
                         .compact(); // 완성
     }
 
-    // JWT Cookie에 저장
-    public void addJwtToCookie(String token, HttpServletResponse response){
-        try{
-            // cookie 에는 공백이 있으면 안 됨 ('Bearer ')-> 강의자료 참고
-            token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20");
-
-            Cookie cookie = new Cookie(AUTHORIZATION_HEADER, token);
-            cookie.setPath("/");
-
-            response.addCookie(cookie);
-
-        }catch (UnsupportedEncodingException e) {
-            logger.error(e.getMessage());
+    // header 에서 JWT 가져오기
+    public String getJwtFromHeader(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
         }
-    }
-
-    // 받아왔을 때 'Bearer ' 이만큼 떼어내야 함
-    // JWT 토큰 substring
-    public String substringToken(String tokenValue){
-        // 공백과 null이 아닌지 && 'Bearer '로 시작하는지
-        if(StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)){
-            // 'Bearer ' 떼기 (value값만 남기기)
-            return tokenValue.substring(7);
-        }
-        logger.error("Not Found Token");
-        throw new NullPointerException("Not Found Token");
+        return null;
     }
 
     // 토큰 검증
@@ -109,23 +90,6 @@ public class JwtUtil {
     // 토큰에서 사용자 정보 가져오기
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-    }
-
-    // HttpServletRequest 에서 Cookie Value : JWT 가져오기
-    public String getTokenFromRequest(HttpServletRequest req) {
-        Cookie[] cookies = req.getCookies();
-        if(cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
-                    try {
-                        return URLDecoder.decode(cookie.getValue(), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
-                    } catch (UnsupportedEncodingException e) {
-                        return null;
-                    }
-                }
-            }
-        }
-        return null;
     }
 
 }
