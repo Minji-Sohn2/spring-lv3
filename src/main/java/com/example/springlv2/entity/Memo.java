@@ -19,9 +19,6 @@ public class Memo extends Timestamped{
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "password", nullable = false)
-    private String password;
-
     @Column(name = "username", nullable = false)
     private String username;
 
@@ -34,7 +31,6 @@ public class Memo extends Timestamped{
         this.title = memoRequestDto.getTitle();
         this.username = user.getUsername();
         this.contents = memoRequestDto.getContents();
-        this.password = memoRequestDto.getPassword();
     }
 
     // Entity class는 Db와 직접적으로 연관됨
@@ -50,14 +46,7 @@ public class Memo extends Timestamped{
         this.contents = contents;
     }
 
-    // memo에 저장된 password와 사용자가 입력한 inputPassword가 일치하는지 확인
-    // 튜터님 코드 참고
-    public void checkPassword(String inputPassword) {
-        if(!password.equals(inputPassword)){
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-    }
-
+    // memo에 저장된 username과 userDetails의 username(inputUsername)이 일치하는지 확인
     public void checkUsername(String inputUsername) {
         if(!username.equals(inputUsername)) {
             throw new IllegalArgumentException("자신이 작성한 메모만 삭제할 수 있습니다.");
