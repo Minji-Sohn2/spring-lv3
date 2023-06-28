@@ -52,12 +52,13 @@ public class MemoService {
         return new MemoResponseDto(memo);
     }
 
-    public void deleteMemo(Long id, String password) {
+    @Transactional
+    public void deleteMemo(Long id, UserDetailsImpl userDetails) {
 
         // 해당 메모가 DB에 존재하는지 확인
         Memo memo = findMemo(id);
+        memo.checkUsername(userDetails.getUsername());
 
-        memo.checkPassword(password);
         memoRepository.delete(memo);
     }
 

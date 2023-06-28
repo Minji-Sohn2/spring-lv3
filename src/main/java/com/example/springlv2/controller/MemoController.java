@@ -1,9 +1,11 @@
 package com.example.springlv2.controller;
 
+import com.example.springlv2.dto.ApiResponseDto;
 import com.example.springlv2.dto.MemoRequestDto;
 import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.security.UserDetailsImpl;
 import com.example.springlv2.service.MemoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,10 +46,10 @@ public class MemoController {
     }
 
     @DeleteMapping("/memos/{id}")
-    public Long deleteMemo(@PathVariable Long id, @RequestBody MemoRequestDto memoRequestDto) {
+    public ApiResponseDto deleteMemo(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        memoService.deleteMemo(id, memoRequestDto.getPassword());
-        return id;
+        memoService.deleteMemo(id, userDetails);
+        return new ApiResponseDto("메모 삭제 완료", HttpStatus.OK.value());
     }
 
 }

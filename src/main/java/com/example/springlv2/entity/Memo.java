@@ -61,4 +61,10 @@ public class Memo extends Timestamped{
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
     }
+
+    public void checkUsername(String inputUsername) {
+        if(!username.equals(inputUsername)) {
+            throw new IllegalArgumentException("자신이 작성한 메모만 삭제할 수 있습니다.");
+        }
+    }
 }
