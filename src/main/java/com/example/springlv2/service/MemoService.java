@@ -39,14 +39,13 @@ public class MemoService {
     }
 
     @Transactional
-    public MemoResponseDto updateMemo(Long id, MemoRequestDto memoRequestDto) {
+    public MemoResponseDto updateMemo(Long id, MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
 
         Memo memo = findMemo(id);
 
-        memo.checkPassword(memoRequestDto.getPassword());
+        memo.checkUsername(userDetails.getUsername());
 
         memo.setTitle(memoRequestDto.getTitle());
-        memo.setUsername(memoRequestDto.getUsername());
         memo.setContents(memoRequestDto.getContents());
 
         return new MemoResponseDto(memo);

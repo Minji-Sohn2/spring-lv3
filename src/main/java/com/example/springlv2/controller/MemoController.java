@@ -40,9 +40,9 @@ public class MemoController {
     }
 
     @PutMapping("/memos/{id}")
-    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        return memoService.updateMemo(id, requestDto);
+        return memoService.updateMemo(id, requestDto, userDetails);
     }
 
     @DeleteMapping("/memos/{id}")
