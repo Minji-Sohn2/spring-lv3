@@ -62,13 +62,6 @@ public class MemoService {
         memoRepository.delete(memo);
     }
 
-    private Memo findMemo(Long id){
-
-        Memo memo = memoRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
-        return memo;
-    }
-
     @Transactional
     public MemoResponseDto updateMemoAdmin(Long id, MemoRequestDto memoRequestDto) {
 
@@ -86,5 +79,12 @@ public class MemoService {
         Memo memo = findMemo(id);
 
         memoRepository.delete(memo);
+    }
+
+    public Memo findMemo(Long id){
+
+        Memo memo = memoRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
+        return memo;
     }
 }
