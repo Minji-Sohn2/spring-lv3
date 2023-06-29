@@ -40,5 +40,4 @@ public class UserController {
 
         return new UserInfoDto(username, isAdmin);
     }
-
 }

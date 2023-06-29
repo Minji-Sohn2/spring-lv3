@@ -52,4 +52,17 @@ public class MemoController {
         return new ApiResponseDto("메모 삭제 완료", HttpStatus.OK.value());
     }
 
+    @PutMapping("/admin/memos/{id}")
+    public MemoResponseDto updateMemoAdmin(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+
+        return memoService.updateMemoAdmin(id, requestDto);
+    }
+
+    @DeleteMapping("/admin/memos/{id}")
+    public ApiResponseDto deleteMemoAdmin(@PathVariable Long id) {
+
+        memoService.deleteMemoAdmin(id);
+        return new ApiResponseDto("관리자 메모 삭제 완료", HttpStatus.OK.value());
+    }
+
 }

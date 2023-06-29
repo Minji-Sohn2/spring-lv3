@@ -22,6 +22,7 @@ public class MemoService {
 
 
     public MemoResponseDto createMemo(MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
+
         // RequestDto -> Entity
         Memo memo = memoRepository.save(new Memo(memoRequestDto, userDetails.getUser()));
 
@@ -62,8 +63,28 @@ public class MemoService {
     }
 
     private Memo findMemo(Long id){
+
         Memo memo = memoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
         return memo;
+    }
+
+    @Transactional
+    public MemoResponseDto updateMemoAdmin(Long id, MemoRequestDto memoRequestDto) {
+
+        Memo memo = findMemo(id);
+
+        memo.setTitle(memoRequestDto.getTitle());
+        memo.setContents(memoRequestDto.getContents());
+
+        return new MemoResponseDto(memo);
+    }
+
+    @Transactional
+    public void deleteMemoAdmin(Long id) {
+
+        Memo memo = findMemo(id);
+
+        memoRepository.delete(memo);
     }
 }
