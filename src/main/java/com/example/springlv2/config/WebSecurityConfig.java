@@ -18,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.example.springlv2.entity.UserRoleEnum.Authority.ADMIN;
+
 @Configuration
 @EnableWebSecurity // Spring Security 지원을 가능하게 함
 @RequiredArgsConstructor
@@ -65,12 +67,8 @@ public class WebSecurityConfig {
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
                         .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
+                        .requestMatchers("/api/admin/**").hasRole(ADMIN) // '/api/admin/'로 시작하는 요청은 ADMIN 계정만 허가
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
-        );
-
-        http.formLogin((formLogin) ->
-                formLogin
-                        .loginPage("/api/user/login-page").permitAll()
         );
 
         // 필터 관리 (첫번째 인자 다음 두번째 인자)
