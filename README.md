@@ -1,9 +1,7 @@
-# spring-lv2
+# spring-lv3
 ## API 명세
-![api 명세 - Google Sheets - Chrome 2023-06-29 오전 4_34_33](https://github.com/Minji-Sohn2/spring-lv2/assets/130354169/fe5a3846-39f1-4060-843a-e049011e7aa2)
 
 ## ERD
-![spring-lv2 – SpringLv2Application java  spring-lv2 main  2023-06-29 오전 5_01_51](https://github.com/Minji-Sohn2/spring-lv2/assets/130354169/9e4bfb30-e06d-4e69-beb5-09b51d94ebc6)
 
 ## 질문
 1. 처음 설계한 API 명세서에 변경사항이 있었나요? 
@@ -20,11 +18,13 @@
 4. 반대로 JWT를 사용한 인증/인가의 한계점은 무엇일까요?
  : jwt에 담는 내용이 커질수록 네트워크 비용이 증가한다. 구현이 복잡하다. secret key 유출 시 jwt 조작이 가능하다.
 
-5. 만약 댓글 기능이 있는 블로그에서 댓글이 달려있는 게시글을 삭제하려고 한다면 무슨 문제가 발생할까요? Database 테이블 관점에서 해결방법이 무엇일까요?
+5. 만약 댓글 기능이 있는 블로그에서 댓글이 달려있는 게시글을 삭제하려고 한다면 무슨 문제가 발생할까요? 
  : 게시글에 달려있는 댓글을 모두 삭제해야한다. 댓글을 모두 삭제한 후 게시글을 삭제해야할 수도 있다.
-연관된 entity 객체를 함께 삭제하기 위해 cascade = CascadeType.PERSIST, orphanRemoval = true 등의 옵션 설정으로 해결할 수 있다.
 
-6. IoC / DI 에 대해 간략하게 설명해 주세요!
+6. 5번과 같은 문제가 발생했을 때 JPA에서는 어떻게 해결할 수 있을까요?
+ : 연관된 entity 객체를 함께 삭제하기 위해 cascade = CascadeType.PERSIST, orphanRemoval = true 등의 옵션 설정으로 해결할 수 있다.
+
+7. IoC / DI 에 대해 간략하게 설명해 주세요!
  : DI(의존성 주입) 
 의존성 주입이란 스프링이 제공하는 기능 중 하나로 외부에서 객체를 생성해 주입받아 다른 클래스에서 사용할 수 있도록 하는 것이다. 객체를 Bean으로 관리하는 Bean Container가 있고, 다른 곳에서 사용할 때 생성자로 직접 생성하는 대신 이미 만들어져있는 Container의 Bean을 가져다 쓸 수 있도록 한다.
  : IoC(제어의 역전)
