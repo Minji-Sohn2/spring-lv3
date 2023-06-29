@@ -1,8 +1,10 @@
 # spring-lv3
 ## API 명세
-![api 명세 - Google Sheets - Chrome 2023-06-29 오후 7_54_17.png](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%B8%ED%BC%BC%20-%20Google%20Sheets%20-%20Chrome%202023-06-29%20%BF%C0%C8%C4%207_54_17.png)
+![api 명세 - Google Sheets - Chrome 2023-06-29 오후 7_54_17](https://github.com/Minji-Sohn2/spring-lv3/assets/130354169/a3621139-ea43-4b79-a9fe-7c29f35d5dc8)
+
 ## ERD
-![Copy of spring-lv3 (1).png](..%2F..%2F..%2FDownloads%2FCopy%20of%20spring-lv3%20%281%29.png)
+![Copy of spring-lv3 (1)](https://github.com/Minji-Sohn2/spring-lv3/assets/130354169/1dfbf8d6-bf3b-4f1c-b373-57d0abf6f97b)
+
 ## 질문
 1. 처음 설계한 API 명세서에 변경사항이 있었나요? 
 변경 되었다면 어떤 점 때문 일까요? 첫 설계의 중요성에 대해 작성해 주세요!
