@@ -1,8 +1,8 @@
 # spring-lv3
 ## API 명세
-
+![api 명세 - Google Sheets - Chrome 2023-06-29 오후 7_54_17.png](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%B8%ED%BC%BC%20-%20Google%20Sheets%20-%20Chrome%202023-06-29%20%BF%C0%C8%C4%207_54_17.png)
 ## ERD
-
+![Copy of spring-lv3 (1).png](..%2F..%2F..%2FDownloads%2FCopy%20of%20spring-lv3%20%281%29.png)
 ## 질문
 1. 처음 설계한 API 명세서에 변경사항이 있었나요? 
 변경 되었다면 어떤 점 때문 일까요? 첫 설계의 중요성에 대해 작성해 주세요!
