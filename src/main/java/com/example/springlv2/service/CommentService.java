@@ -2,12 +2,15 @@ package com.example.springlv2.service;
 
 import com.example.springlv2.dto.CommentRequestDto;
 import com.example.springlv2.dto.CommentResponseDto;
+import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.entity.Comment;
 import com.example.springlv2.entity.Memo;
 import com.example.springlv2.repository.CommentRepository;
 import com.example.springlv2.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,9 +22,14 @@ public class CommentService {
 
         Memo memo = memoService.findMemo(memoId);
 
-        Comment comment = commentRepository.save(new Comment(memo, requestDto, userDetails.getUser()));
+        Comment comment = new Comment(memo, requestDto, userDetails.getUser());
+        memo.addCommentList(comment);
 
-        return new CommentResponseDto(comment);
+        return new CommentResponseDto(commentRepository.save(comment));
+    }
+
+    public List<CommentResponseDto> getCommentList(Long memoId) {
+        return commentRepository.findAllByMemo_IdOrderByCreatedAtDesc(memoId).stream().map(CommentResponseDto::new).toList();
     }
 
 }

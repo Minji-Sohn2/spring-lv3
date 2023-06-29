@@ -1,10 +1,14 @@
 package com.example.springlv2.entity;
 
+import com.example.springlv2.dto.CommentResponseDto;
 import com.example.springlv2.dto.MemoRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter
@@ -25,7 +29,8 @@ public class Memo extends Timestamped{
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-
+    @OneToMany(mappedBy = "memo")
+    private List<Comment> commentList = new ArrayList<>();
 
     public Memo(MemoRequestDto memoRequestDto, User user) {
         this.title = memoRequestDto.getTitle();
@@ -44,6 +49,11 @@ public class Memo extends Timestamped{
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public void addCommentList(Comment comment) {
+        this.commentList.add(comment);
+        comment.setMemo(this);
     }
 
     // memo에 저장된 username과 userDetails의 username(inputUsername)이 일치하는지 확인
