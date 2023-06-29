@@ -1,5 +1,6 @@
 package com.example.springlv2.security;
 
+import com.example.springlv2.dto.ApiResponseDto;
 import com.example.springlv2.dto.LoginRequestDto;
 import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.jwt.JwtUtil;
@@ -48,20 +49,37 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     // 로그인 성공
     // Authentication 인증 객체 받아옴 -> 그 속의 UserDetailsImpl username 가져오기
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
+
+        log.info("로그인 성공 및 JWT 생성");
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
         // token 생성
         String token = jwtUtil.createToken(username, role);
+
         // header 에 바로 넣어줌
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+
+        ApiResponseDto apiResponseDto = new ApiResponseDto("로그인 성공", HttpServletResponse.SC_OK);
+        String json = new ObjectMapper().writeValueAsString(apiResponseDto);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+
     }
 
     // 로그인 실패
     // 반환 메세지 작성 시 여기서
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException{
         response.setStatus(401); // unauthorized
+        ApiResponseDto apiResponseDto = new ApiResponseDto("로그인 실패", HttpServletResponse.SC_UNAUTHORIZED);
+        String json = new ObjectMapper().writeValueAsString(apiResponseDto);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 }
