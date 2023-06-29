@@ -1,6 +1,7 @@
 package com.example.springlv2.security;
 
 import com.example.springlv2.entity.User;
+import com.example.springlv2.entity.UserRoleEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,12 +33,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        UserRoleEnum role = user.getRole();
-//        String authority = role.getAuthority();
-//
-//        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
+        UserRoleEnum role = user.getRole();
+        String authority = role.getAuthority();
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-//        authorities.add(simpleGrantedAuthority);
+        authorities.add(simpleGrantedAuthority);
 
         return authorities;
     }

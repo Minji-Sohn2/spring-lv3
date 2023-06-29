@@ -1,5 +1,6 @@
 package com.example.springlv2.jwt;
 
+import com.example.springlv2.entity.UserRoleEnum;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -24,6 +25,8 @@ public class JwtUtil {
 
     // Header key 값 (cookie의 name 값)
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    // 사용자 권한 값의 KEY
+    public static final String AUTHORIZATION_KEY = "auth";
     // token 식별자 규칙 (이 뒤는 token 이구나! value 앞에 붙이기, 한 칸 띄우기)
     public static final String BEARER_PREFIX = "Bearer ";
     private final long TOKEN_TIME = 60 * 60 * 1000L; // 60분 (millisec)
@@ -48,12 +51,13 @@ public class JwtUtil {
     }
 
     // 토큰 생성
-    public String createToken(String username){
+    public String createToken(String username, UserRoleEnum role){
         Date date = new Date();
 
         return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(username) // 사용자 id
+                        .claim(AUTHORIZATION_KEY, role) // 사용자 권한
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
                         .setIssuedAt(date) // 발급 시간
                         .signWith(key,signatureAlgorithm) // 키, 암호화 알고리즘

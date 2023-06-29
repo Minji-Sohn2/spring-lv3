@@ -1,6 +1,7 @@
 package com.example.springlv2.security;
 
 import com.example.springlv2.dto.LoginRequestDto;
+import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.jwt.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -49,9 +50,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     // Authentication 인증 객체 받아옴 -> 그 속의 UserDetailsImpl username 가져오기
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
+        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
         // token 생성
-        String token = jwtUtil.createToken(username);
+        String token = jwtUtil.createToken(username, role);
         // header 에 바로 넣어줌
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
     }
