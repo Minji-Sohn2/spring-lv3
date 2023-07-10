@@ -35,6 +35,7 @@ public class Comment extends Timestamped{
         this.comment = requestDto.getComment();
         this.user = user;
         this.username = user.getUsername();
+        this.memo = memo;
     }
 
     public void checkUsername(String inputUsername) {
