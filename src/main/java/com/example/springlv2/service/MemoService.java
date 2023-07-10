@@ -1,11 +1,15 @@
 package com.example.springlv2.service;
 
+import com.example.springlv2.dto.ApiResponseDto;
+import com.example.springlv2.dto.CommentResponseDto;
 import com.example.springlv2.dto.MemoRequestDto;
 import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.entity.Memo;
+import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.repository.MemoRepository;
 import com.example.springlv2.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,42 +35,51 @@ public class MemoService {
         return memoRepository.findAllByOrderByModifiedAtDesc().stream().map(MemoResponseDto::new).toList();
     }
 
+    @Transactional
     public MemoResponseDto getMemo(Long id) {
-        return new MemoResponseDto(findMemo(id));
+        Memo memo = findMemo(id);
+        List<CommentResponseDto> commentList = memo.getCommentList().stream().map(CommentResponseDto::new).toList();
+
+        return new MemoResponseDto(memo, commentList);
     }
 
     @Transactional
-    public MemoResponseDto updateMemo(Long id, MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
+    public MemoResponseDto updateMemo(
+            Long id,
+            MemoRequestDto memoRequestDto,
+            UserDetailsImpl userDetails
+    ) {
 
         Memo memo = findMemo(id);
 
-        memo.checkUsername(userDetails.getUsername());
+        if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
+            memo.setTitle(memoRequestDto.getTitle());
+            memo.setContents(memoRequestDto.getContents());
+        } else {
+            memo.checkUsername(userDetails.getUsername());
 
-        memo.setTitle(memoRequestDto.getTitle());
-        memo.setContents(memoRequestDto.getContents());
+            memo.setTitle(memoRequestDto.getTitle());
+            memo.setContents(memoRequestDto.getContents());
+        }
 
         return new MemoResponseDto(memo);
     }
 
     @Transactional
-    public void deleteMemo(Long id, UserDetailsImpl userDetails) {
+    public ApiResponseDto deleteMemo(Long id, UserDetailsImpl userDetails) {
 
         // 해당 메모가 DB에 존재하는지 확인
         Memo memo = findMemo(id);
-        memo.checkUsername(userDetails.getUsername());
 
-        memoRepository.delete(memo);
-    }
+        if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
+            memoRepository.delete(memo);
+        } else {
+            memo.checkUsername(userDetails.getUsername());
 
-    @Transactional
-    public MemoResponseDto updateMemoAdmin(Long id, MemoRequestDto memoRequestDto) {
+            memoRepository.delete(memo);
+        }
 
-        Memo memo = findMemo(id);
-
-        memo.setTitle(memoRequestDto.getTitle());
-        memo.setContents(memoRequestDto.getContents());
-
-        return new MemoResponseDto(memo);
+        return new ApiResponseDto("메모 삭제 완료", HttpStatus.OK.value());
     }
 
     @Transactional
@@ -79,8 +92,7 @@ public class MemoService {
 
     public Memo findMemo(Long id){
 
-        Memo memo = memoRepository.findById(id).orElseThrow(() ->
+        return memoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
-        return memo;
     }
 }

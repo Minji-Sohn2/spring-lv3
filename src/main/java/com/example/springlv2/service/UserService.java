@@ -1,5 +1,6 @@
 package com.example.springlv2.service;
 
+import com.example.springlv2.dto.ApiResponseDto;
 import com.example.springlv2.dto.SignupRequestDto;
 import com.example.springlv2.entity.User;
 import com.example.springlv2.entity.UserRoleEnum;
@@ -7,6 +8,7 @@ import com.example.springlv2.jwt.JwtUtil;
 import com.example.springlv2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +23,12 @@ public class UserService {
 
     // ADMIN_TOKEN
     @Value("${ADMIN_TOKEN}")
-    private String ADMIN_TOKEN;
+    public String ADMIN_TOKEN;
 
     // 회원가입
-    public User signup(SignupRequestDto requestDto) {
+    public ApiResponseDto signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
         String password = passwordEncoder.encode(requestDto.getPassword());
-//        String password = requestDto.getPassword();
 
         // 회원 중복 확인
         Optional<User> checkUsername = userRepository.findByUsername(username);
@@ -49,7 +50,7 @@ public class UserService {
         User user = new User(username, password, role);
         userRepository.save(user);
 
-        return user;
+        return new ApiResponseDto("회원 가입 완료", HttpStatus.OK.value());
     }
 
 }

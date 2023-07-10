@@ -3,11 +3,9 @@ package com.example.springlv2.controller;
 import com.example.springlv2.dto.ApiResponseDto;
 import com.example.springlv2.dto.SignupRequestDto;
 import com.example.springlv2.dto.UserInfoDto;
-import com.example.springlv2.entity.User;
 import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.security.UserDetailsImpl;
 import com.example.springlv2.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,8 +24,7 @@ public class UserController {
     // 회원가입 할 때 사용자의 정보입력
     @PostMapping("/signup")
     public ApiResponseDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto){
-        userService.signup(signupRequestDto);
-        return new ApiResponseDto("회원 가입 완료", HttpStatus.OK.value());
+        return userService.signup(signupRequestDto);
     }
 
     // 회원 관련 정보 받기

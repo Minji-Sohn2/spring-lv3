@@ -40,7 +40,11 @@ public class MemoController {
     }
 
     @PutMapping("/memos/{id}")
-    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public MemoResponseDto updateMemo(
+            @PathVariable Long id,
+            @RequestBody MemoRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
 
         return memoService.updateMemo(id, requestDto, userDetails);
     }
@@ -48,14 +52,7 @@ public class MemoController {
     @DeleteMapping("/memos/{id}")
     public ApiResponseDto deleteMemo(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        memoService.deleteMemo(id, userDetails);
-        return new ApiResponseDto("메모 삭제 완료", HttpStatus.OK.value());
-    }
-
-    @PutMapping("/admin/memos/{id}")
-    public MemoResponseDto updateMemoAdmin(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
-
-        return memoService.updateMemoAdmin(id, requestDto);
+        return memoService.deleteMemo(id, userDetails);
     }
 
     @DeleteMapping("/admin/memos/{id}")
