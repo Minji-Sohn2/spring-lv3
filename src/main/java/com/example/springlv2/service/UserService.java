@@ -1,6 +1,7 @@
 package com.example.springlv2.service;
 
 import com.example.springlv2.dto.ApiResponseDto;
+import com.example.springlv2.dto.LoginRequestDto;
 import com.example.springlv2.dto.SignupRequestDto;
 import com.example.springlv2.entity.User;
 import com.example.springlv2.entity.UserRoleEnum;
@@ -52,4 +53,18 @@ public class UserService {
         return new ApiResponseDto("회원 가입 완료", HttpStatus.OK.value());
     }
 
+    public ApiResponseDto login(LoginRequestDto loginRequestDto) {
+        String username = loginRequestDto.getUsername();
+        String password = loginRequestDto.getPassword();
+
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new IllegalArgumentException("회원을 찾을 수 없습니다.")
+        );
+
+        if(!passwordEncoder.matches(password,user.getPassword())) {
+            return new ApiResponseDto("회원을 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value());
+        }
+
+        return new ApiResponseDto("로그인 완료", HttpStatus.OK.value());
+    }
 }

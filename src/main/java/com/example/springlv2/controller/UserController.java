@@ -1,6 +1,7 @@
 package com.example.springlv2.controller;
 
 import com.example.springlv2.dto.ApiResponseDto;
+import com.example.springlv2.dto.LoginRequestDto;
 import com.example.springlv2.dto.SignupRequestDto;
 import com.example.springlv2.dto.UserInfoDto;
 import com.example.springlv2.entity.UserRoleEnum;
@@ -24,6 +25,11 @@ public class UserController {
     @PostMapping("/signup")
     public ApiResponseDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto){
         return userService.signup(signupRequestDto);
+    }
+
+    @PostMapping("/login")
+    public ApiResponseDto login(@RequestBody LoginRequestDto loginRequestDto) {
+        return userService.login(loginRequestDto);
     }
 
     // 회원 관련 정보 받기
