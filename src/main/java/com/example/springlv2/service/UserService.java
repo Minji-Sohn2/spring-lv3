@@ -6,6 +6,7 @@ import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.jwt.JwtUtil;
 import com.example.springlv2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // ADMIN_TOKEN
-    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+    @Value("${ADMIN_TOKEN}")
+    private String ADMIN_TOKEN;
 
     // 회원가입
     public User signup(SignupRequestDto requestDto) {

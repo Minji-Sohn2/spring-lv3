@@ -5,21 +5,17 @@ import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.entity.Memo;
 import com.example.springlv2.repository.MemoRepository;
 import com.example.springlv2.security.UserDetailsImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MemoService {
 
     private final MemoRepository memoRepository;
-
-    // final 로 선언했기 때문에 처음부터 초기화 되어야 함
-    public MemoService(MemoRepository memoRepository) {
-        this.memoRepository = memoRepository;
-    }
-
 
     public MemoResponseDto createMemo(MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
 
