@@ -19,4 +19,9 @@ public class CommentController {
     public CommentResponseDto createComment(@PathVariable Long memoId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.createComment(memoId,requestDto, userDetails);
     }
+
+    @PutMapping("/comments/{memoId}/{commentId}")
+    public CommentResponseDto updateComment(@PathVariable Long memoId, @PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return commentService.update(memoId, commentId, requestDto, userDetails);
+    }
 }

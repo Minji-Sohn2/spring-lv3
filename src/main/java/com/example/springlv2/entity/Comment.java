@@ -37,4 +37,9 @@ public class Comment extends Timestamped{
         this.username = user.getUsername();
     }
 
+    public void checkUsername(String inputUsername) {
+        if(!username.equals(inputUsername)) {
+            throw new IllegalArgumentException("자신이 작성한 메모만 수정/삭제할 수 있습니다.");
+        }
+    }
 }
