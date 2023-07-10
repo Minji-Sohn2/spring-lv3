@@ -7,7 +7,6 @@ import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.security.UserDetailsImpl;
 import com.example.springlv2.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 

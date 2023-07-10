@@ -4,7 +4,6 @@ import com.example.springlv2.dto.ApiResponseDto;
 import com.example.springlv2.dto.SignupRequestDto;
 import com.example.springlv2.entity.User;
 import com.example.springlv2.entity.UserRoleEnum;
-import com.example.springlv2.jwt.JwtUtil;
 import com.example.springlv2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
