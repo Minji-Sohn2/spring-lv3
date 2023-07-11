@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SignupRequestDto {
+
     @NotBlank
     @Size(min = 4, max = 10, message = "4자 이상, 10자 이하")
     @Pattern(regexp = "^[a-z0-9]*$", message = "알파벳 소문자(a~z), 숫자(0~9)")

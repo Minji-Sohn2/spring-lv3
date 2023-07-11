@@ -10,6 +10,7 @@ import java.util.List;
 // JPA 할 때 이유 다시 언급
 @Getter
 public class MemoResponseDto {
+
     private Long id;
     private String title;
     private String username;
@@ -36,4 +37,5 @@ public class MemoResponseDto {
         this.modifiedAt = memo.getModifiedAt();
         this.commentList = commentList;
     }
+
 }

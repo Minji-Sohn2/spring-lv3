@@ -25,7 +25,6 @@ public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
-    private final AuthenticationConfiguration authenticationConfiguration; // authentication manager 생성
 
     @Bean
     public PasswordEncoder passwordEncoder() {
