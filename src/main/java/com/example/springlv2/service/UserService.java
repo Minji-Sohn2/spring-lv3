@@ -69,7 +69,7 @@ public class UserService {
         }
 
         String token = jwtUtil.createToken(username, user.getRole());
-        response.addHeader(jwtUtil.AUTHORIZATION_HEADER, token);
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
 
         return new ApiResponseDto("로그인 완료", HttpStatus.OK.value());
     }

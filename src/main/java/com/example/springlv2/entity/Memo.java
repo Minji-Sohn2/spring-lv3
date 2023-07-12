@@ -1,6 +1,5 @@
 package com.example.springlv2.entity;
 
-import com.example.springlv2.dto.CommentResponseDto;
 import com.example.springlv2.dto.MemoRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
