@@ -6,6 +6,7 @@ import com.example.springlv2.dto.MemoRequestDto;
 import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.entity.Memo;
 import com.example.springlv2.entity.UserRoleEnum;
+import com.example.springlv2.repository.CommentRepository;
 import com.example.springlv2.repository.MemoRepository;
 import com.example.springlv2.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MemoService {
 
     private final MemoRepository memoRepository;
+    private final CommentRepository commentRepository;
 
     public MemoResponseDto createMemo(MemoRequestDto memoRequestDto, UserDetailsImpl userDetails) {
 
@@ -38,7 +40,7 @@ public class MemoService {
     @Transactional
     public MemoResponseDto getMemo(Long id) {
         Memo memo = findMemo(id);
-        List<CommentResponseDto> commentList = memo.getCommentList().stream().map(CommentResponseDto::new).toList();
+        List<CommentResponseDto> commentList = commentRepository.findAllByOrderByCreatedAtDesc().stream().map(CommentResponseDto::new).toList();
 
         return new MemoResponseDto(memo, commentList);
     }
