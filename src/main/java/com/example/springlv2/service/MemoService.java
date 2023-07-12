@@ -53,6 +53,7 @@ public class MemoService {
     ) {
 
         Memo memo = findMemo(id);
+        List<CommentResponseDto> commentList = commentRepository.findAllByOrderByCreatedAtDesc().stream().map(CommentResponseDto::new).toList();
 
         if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
             memo.setTitle(memoRequestDto.getTitle());
@@ -64,7 +65,7 @@ public class MemoService {
             memo.setContents(memoRequestDto.getContents());
         }
 
-        return new MemoResponseDto(memo);
+        return new MemoResponseDto(memo, commentList);
     }
 
     @Transactional

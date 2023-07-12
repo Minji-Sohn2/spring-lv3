@@ -15,6 +15,7 @@ public class MemoResponseDto {
     private String title;
     private String username;
     private String contents;
+    private int likeCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<CommentResponseDto> commentList;
@@ -24,6 +25,7 @@ public class MemoResponseDto {
         this.title = memo.getTitle();
         this.username = memo.getUsername();
         this.contents = memo.getContents();
+        this.likeCount = memo.checkLikeCount();
         this.createdAt = memo.getCreatedAt();
         this.modifiedAt = memo.getModifiedAt();
     }
@@ -33,6 +35,7 @@ public class MemoResponseDto {
         this.title = memo.getTitle();
         this.username = memo.getUsername();
         this.contents = memo.getContents();
+        this.likeCount = memo.checkLikeCount();
         this.createdAt = memo.getCreatedAt();
         this.modifiedAt = memo.getModifiedAt();
         this.commentList = commentList;
