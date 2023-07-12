@@ -5,7 +5,9 @@ import com.example.springlv2.dto.LoginRequestDto;
 import com.example.springlv2.dto.SignupRequestDto;
 import com.example.springlv2.entity.User;
 import com.example.springlv2.entity.UserRoleEnum;
+import com.example.springlv2.jwt.JwtUtil;
 import com.example.springlv2.repository.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     // ADMIN_TOKEN
     @Value("${ADMIN_TOKEN}")
@@ -53,7 +56,7 @@ public class UserService {
         return new ApiResponseDto("회원 가입 완료", HttpStatus.OK.value());
     }
 
-    public ApiResponseDto login(LoginRequestDto loginRequestDto) {
+    public ApiResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -64,6 +67,9 @@ public class UserService {
         if(!passwordEncoder.matches(password,user.getPassword())) {
             return new ApiResponseDto("회원을 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value());
         }
+
+        String token = jwtUtil.createToken(username, user.getRole());
+        response.addHeader(jwtUtil.AUTHORIZATION_HEADER, token);
 
         return new ApiResponseDto("로그인 완료", HttpStatus.OK.value());
     }

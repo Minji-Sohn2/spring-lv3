@@ -7,6 +7,7 @@ import com.example.springlv2.dto.UserInfoDto;
 import com.example.springlv2.entity.UserRoleEnum;
 import com.example.springlv2.security.UserDetailsImpl;
 import com.example.springlv2.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ApiResponseDto login(@RequestBody LoginRequestDto loginRequestDto) {
-        return userService.login(loginRequestDto);
+    public ApiResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        return userService.login(loginRequestDto, response);
     }
 
     // 회원 관련 정보 받기
