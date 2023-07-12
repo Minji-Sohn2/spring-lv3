@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class Comment extends Timestamped{
     @JoinColumn(name = "memo_id")
     private Memo memo;
 
+    @OneToMany(mappedBy = "comment")
+    private List<CommentLike> commentLikeList = new ArrayList<>();
+
     public Comment(Memo memo, CommentRequestDto requestDto, User user) {
         this.comment = requestDto.getComment();
         this.user = user;
@@ -42,5 +48,15 @@ public class Comment extends Timestamped{
         if(!username.equals(inputUsername)) {
             throw new IllegalArgumentException("자신이 작성한 메모만 수정/삭제할 수 있습니다.");
         }
+    }
+
+    public int checkLikeCount() {
+        int count = 0;
+        for (CommentLike commentLike : commentLikeList) {
+            if (commentLike.isLiked()) {
+                count++;
+            }
+        }
+        return count;
     }
 }

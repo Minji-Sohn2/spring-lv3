@@ -11,6 +11,7 @@ public class CommentResponseDto {
     private Long id;
     private String username;
     private String comment;
+    private Integer likeCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -18,6 +19,7 @@ public class CommentResponseDto {
         this.id = comment.getId();
         this.username = comment.getUser().getUsername();
         this.comment = comment.getComment();
+        this.likeCount = comment.checkLikeCount();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();
     }
