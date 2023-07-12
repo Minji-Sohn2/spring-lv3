@@ -13,15 +13,15 @@ import lombok.Setter;
 public class CommentLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "comment_id", nullable = false)
-    Comment comment;
+    private Comment comment;
 
     @Column(name = "isLiked")
     boolean isLiked;
