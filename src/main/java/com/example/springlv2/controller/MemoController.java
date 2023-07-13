@@ -5,7 +5,6 @@ import com.example.springlv2.dto.MemoRequestDto;
 import com.example.springlv2.dto.MemoResponseDto;
 import com.example.springlv2.security.UserDetailsImpl;
 import com.example.springlv2.service.MemoService;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 

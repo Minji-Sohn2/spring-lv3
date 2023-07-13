@@ -65,7 +65,7 @@ public class UserService {
         );
 
         if(!passwordEncoder.matches(password,user.getPassword())) {
-            return new ApiResponseDto("회원을 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("회원을 찾을 수 없습니다.");
         }
 
         String token = jwtUtil.createToken(username, user.getRole());
