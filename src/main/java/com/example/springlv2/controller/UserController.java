@@ -10,6 +10,7 @@ import com.example.springlv2.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +25,10 @@ public class UserController {
 
     // 회원가입 할 때 사용자의 정보입력
     @PostMapping("/signup")
-    public ApiResponseDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto){
+    public ApiResponseDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            throw new IllegalArgumentException("username과 password의 구성이 알맞지 않습니다.");
+        }
         return userService.signup(signupRequestDto);
     }
 
