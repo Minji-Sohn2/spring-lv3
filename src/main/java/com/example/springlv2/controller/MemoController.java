@@ -55,11 +55,4 @@ public class MemoController {
         return memoService.deleteMemo(id, userDetails);
     }
 
-    @DeleteMapping("/admin/memos/{id}")
-    public ApiResponseDto deleteMemoAdmin(@PathVariable Long id) {
-
-        memoService.deleteMemoAdmin(id);
-        return new ApiResponseDto("관리자 메모 삭제 완료", HttpStatus.OK.value());
-    }
-
 }

@@ -44,12 +44,6 @@ public class Comment extends Timestamped{
         this.memo = memo;
     }
 
-    public void checkUsername(String inputUsername) {
-        if(!username.equals(inputUsername)) {
-            throw new IllegalArgumentException("자신이 작성한 메모만 수정/삭제할 수 있습니다.");
-        }
-    }
-
     public int checkLikeCount() {
         int count = 0;
         for (CommentLike commentLike : commentLikeList) {

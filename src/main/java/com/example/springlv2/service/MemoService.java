@@ -10,14 +10,17 @@ import com.example.springlv2.repository.CommentRepository;
 import com.example.springlv2.repository.MemoRepository;
 import com.example.springlv2.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j(topic = "MemoService")
 public class MemoService {
 
     private final MemoRepository memoRepository;
@@ -40,7 +43,7 @@ public class MemoService {
     @Transactional
     public MemoResponseDto getMemo(Long id) {
         Memo memo = findMemo(id);
-        List<CommentResponseDto> commentList = commentRepository.findAllByOrderByCreatedAtDesc().stream().map(CommentResponseDto::new).toList();
+        List<CommentResponseDto> commentList = commentRepository.findAllByMemoOrderByCreatedAtDesc(memo).stream().map(CommentResponseDto::new).toList();
 
         return new MemoResponseDto(memo, commentList);
     }
@@ -53,18 +56,18 @@ public class MemoService {
     ) {
 
         Memo memo = findMemo(id);
-        List<CommentResponseDto> commentList = commentRepository.findAllByOrderByCreatedAtDesc().stream().map(CommentResponseDto::new).toList();
+        List<CommentResponseDto> commentList = commentRepository.findAllByMemoOrderByCreatedAtDesc(memo).stream().map(CommentResponseDto::new).toList();
 
         if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
+            log.info("admin인 경우 수정" + userDetails.getUsername());
             memo.setTitle(memoRequestDto.getTitle());
             memo.setContents(memoRequestDto.getContents());
         } else {
-            memo.checkUsername(userDetails.getUsername());
+            checkUsername(memo, userDetails.getUsername());
 
             memo.setTitle(memoRequestDto.getTitle());
             memo.setContents(memoRequestDto.getContents());
         }
-
         return new MemoResponseDto(memo, commentList);
     }
 
@@ -77,7 +80,7 @@ public class MemoService {
         if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
             memoRepository.delete(memo);
         } else {
-            memo.checkUsername(userDetails.getUsername());
+            checkUsername(memo, userDetails.getUsername());
 
             memoRepository.delete(memo);
         }
@@ -85,17 +88,15 @@ public class MemoService {
         return new ApiResponseDto("메모 삭제 완료", HttpStatus.OK.value());
     }
 
-    @Transactional
-    public void deleteMemoAdmin(Long id) {
-
-        Memo memo = findMemo(id);
-
-        memoRepository.delete(memo);
-    }
-
     public Memo findMemo(Long id){
 
         return memoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
+    }
+
+    public void checkUsername(Memo memo, String username) {
+        if(!memo.getUsername().equals(username)) {
+            throw new IllegalArgumentException("작성자만 수정/삭제할 수 있습니다.");
+        }
     }
 }

@@ -53,13 +53,6 @@ public class Memo extends Timestamped{
         comment.setMemo(this);
     }
 
-    // memo에 저장된 username과 userDetails의 username(inputUsername)이 일치하는지 확인
-    public void checkUsername(String inputUsername) {
-        if(!username.equals(inputUsername)) {
-            throw new IllegalArgumentException("자신이 작성한 메모만 수정/삭제할 수 있습니다.");
-        }
-    }
-
     public int checkLikeCount() {
         int count = 0;
         for (MemoLike memoLike : memoLikeList) {

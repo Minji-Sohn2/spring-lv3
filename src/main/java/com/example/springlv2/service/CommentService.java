@@ -38,7 +38,7 @@ public class CommentService {
         if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
             comment.setComment(requestDto.getComment());
         } else {
-            comment.checkUsername(userDetails.getUsername());
+            checkUsername(comment, userDetails.getUsername());
 
             comment.setComment(requestDto.getComment());
         }
@@ -53,7 +53,7 @@ public class CommentService {
         if(userDetails.getUser().getRole().equals(UserRoleEnum.ADMIN)) {
             commentRepository.delete(comment);
         } else {
-            comment.checkUsername(userDetails.getUsername());
+            checkUsername(comment, userDetails.getUsername());
 
             commentRepository.delete(comment);
         }
@@ -69,5 +69,11 @@ public class CommentService {
     private Comment findComment(Long commentId) {
         return commentRepository.findById(commentId).orElseThrow(() ->
                 new IllegalArgumentException("선택한 댓글은 존재하지 않습니다."));
+    }
+
+    public void checkUsername(Comment comment, String username) {
+        if(!comment.getUsername().equals(username)) {
+            throw new IllegalArgumentException("작성자만 수정/삭제할 수 있습니다.");
+        }
     }
 }
