@@ -1,12 +1,11 @@
 # spring-lv4
 ## API 명세
-
-![api 명세 - Google Sheets - Chrome 2023-07-12 오후 8_51_15.png](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%EB%AA%85%EC%84%B8%20-%20Google%20Sheets%20-%20Chrome%202023-07-12%20%EC%98%A4%ED%9B%84%208_51_15.png)
-![api 명세 - Google Sheets - Chrome 2023-07-12 오후 8_53_00.png](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%EB%AA%85%EC%84%B8%20-%20Google%20Sheets%20-%20Chrome%202023-07-12%20%EC%98%A4%ED%9B%84%208_53_00.png)
-![api 명세 - Google Sheets - Chrome 2023-07-12 오후 8_53_46.png](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%EB%AA%85%EC%84%B8%20-%20Google%20Sheets%20-%20Chrome%202023-07-12%20%EC%98%A4%ED%9B%84%208_53_46.png)
+![api 명세 - Google Sheets - Chrome 2023-07-12 오후 8_51_15.jpg](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%EB%AA%85%EC%84%B8%20-%20Google%20Sheets%20-%20Chrome%202023-07-12%20%EC%98%A4%ED%9B%84%208_51_15.jpg)
+![api 명세 - Google Sheets - Chrome 2023-07-12 오후 8_53_00.jpg](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%EB%AA%85%EC%84%B8%20-%20Google%20Sheets%20-%20Chrome%202023-07-12%20%EC%98%A4%ED%9B%84%208_53_00.jpg)
+![api 명세 - Google Sheets - Chrome 2023-07-12 오후 8_53_46.jpg](..%2F..%2F..%2FVideos%2FCaptures%2Fapi%20%EB%AA%85%EC%84%B8%20-%20Google%20Sheets%20-%20Chrome%202023-07-12%20%EC%98%A4%ED%9B%84%208_53_46.jpg)
 
 ## ERD
-![spring-lv2 – memo2 2023-07-12 오후 8_42_27.png](..%2F..%2F..%2FVideos%2FCaptures%2Fspring-lv2%20%E2%80%93%20memo2%202023-07-12%20%EC%98%A4%ED%9B%84%208_42_27.png)
+![spring-lv2 – memo2 2023-07-12 오후 8_42_27.jpg](..%2F..%2F..%2FVideos%2FCaptures%2Fspring-lv2%20%E2%80%93%20memo2%202023-07-12%20%EC%98%A4%ED%9B%84%208_42_27.jpg)
 
 ## 요구사항(추가)
 1. 회원 가입 API
