@@ -38,7 +38,7 @@ public class MemoLikeService {
         MemoLike memoLike = memoLikeRepository.findByMemoAndUser(memo, userDetails.getUser()).orElse(null);
 
         if (memoLike == null) {
-            throw new IllegalArgumentException("한 번도 좋아요 한 적이 없는 댓글입니다.");
+            throw new IllegalArgumentException("한 번도 좋아요 한 적이 없는 메모입니다.");
         } else if(memoLike.isLiked()){      // 좋아요 했었지만 취소된 상태
             memoLike.setLiked(false);
         }

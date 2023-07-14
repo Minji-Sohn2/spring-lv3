@@ -80,14 +80,17 @@ public class JwtUtil {
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException e) { // 변조, 파괴
             logger.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
         } catch (ExpiredJwtException e) { // 만료
             logger.error("Expired JWT token, 만료된 JWT token 입니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
         } catch (UnsupportedJwtException e) {
             logger.error("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
         }
-        return false;
     }
 
     // body 부분에서 claims(데이터들의 집합) 가져오기
