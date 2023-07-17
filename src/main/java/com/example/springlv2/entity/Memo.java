@@ -28,10 +28,10 @@ public class Memo extends Timestamped{
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-    @OneToMany(mappedBy = "memo")
+    @OneToMany(mappedBy = "memo", cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memo")
+    @OneToMany(mappedBy = "memo", cascade = CascadeType.REMOVE)
     private List<MemoLike> memoLikeList = new ArrayList<>();
 
     public void setTitle(String title) {
